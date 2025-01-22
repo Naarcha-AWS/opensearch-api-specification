@@ -4639,6 +4639,7 @@ paths:
     post:
       operationId: ml.predict.0
       x-operation-group: ml.predict
+      x-version-added: '1.3'
       description: Predicts new data with trained model.
       parameters:
         - $ref: '#/components/parameters/ml.predict___path.algorithm_name'
@@ -4657,6 +4658,7 @@ paths:
     post:
       operationId: ml.train_predict.0
       x-operation-group: ml.train_predict
+      x-version-added: '1.3'
       description: Trains a model and predicts against the same training dataset.
       parameters:
         - $ref: '#/components/parameters/ml.train_predict___path.algorithm_name'
@@ -4674,6 +4676,7 @@ paths:
     post:
       operationId: ml.train.0
       x-operation-group: ml.train
+      x-version-added: '1.3'
       description: Trains a model synchronously.
       parameters:
         - $ref: '#/components/parameters/ml.train___path.algorithm_name'
@@ -16194,7 +16197,6 @@ components:
     cat.aliases___path.name:
       in: path
       name: name
-      description: A comma-separated list of aliases to retrieve. Supports wildcards (`*`).  To retrieve all aliases, omit this parameter or use `*` or `_all`.
       required: true
       schema:
         $ref: '#/components/schemas/_common___Names'
@@ -16202,7 +16204,6 @@ components:
     cat.aliases___query.expand_wildcards:
       in: query
       name: expand_wildcards
-      description: Expands wildcard expressions to concrete indexes. Combine multiple values with commas. Supported values are `all`, `open`, `closed`, `hidden`, and `none`.
       schema:
         $ref: '#/components/schemas/_common___ExpandWildcards'
       style: form
@@ -16674,7 +16675,6 @@ components:
     cat.indices___query.expand_wildcards:
       in: query
       name: expand_wildcards
-      description: The type of index that wildcard patterns can match.  Supported values are `all`, `open`, `closed`, `hidden`, and `none`.
       schema:
         $ref: '#/components/schemas/_common___ExpandWildcards'
       style: form
@@ -17418,7 +17418,6 @@ components:
     cat.segment_replication___query.expand_wildcards:
       name: expand_wildcards
       in: query
-      description: The type of index that wildcard patterns can match. Supported values are `all`, `open`, `closed`, `hidden`, and `none`.
       schema:
         $ref: '#/components/schemas/_common___ExpandWildcards'
     cat.segment_replication___query.format:
@@ -17600,10 +17599,6 @@ components:
     cat.shards___path.index:
       in: path
       name: index
-      description: |-
-        A comma-separated list of data streams, indexes, and aliases used to limit the request.
-        Supports wildcards (`*`).
-        To target all data streams and indexes, omit this parameter or use `*` or `_all`.
       required: true
       schema:
         $ref: '#/components/schemas/_common___Indices'
@@ -17679,7 +17674,6 @@ components:
     cat.shards___query.time:
       name: time
       in: query
-      description: Specifies the time units, for example, `5d` or `7h`. For more information, see [Supported units](https://opensearch.org/docs/latest/api-reference/units/).
       schema:
         $ref: '#/components/schemas/_common___TimeUnit'
     cat.shards___query.v:
@@ -34935,6 +34929,10 @@ components:
           $ref: '#/components/schemas/_common___SortOrder'
         unit:
           $ref: '#/components/schemas/_common___DistanceUnit'
+      additionalProperties:
+        type: array
+        items:
+          $ref: '#/components/schemas/_common___GeoLocation'
     _common___GeoDistanceType:
       type: string
       enum:
@@ -35147,6 +35145,10 @@ components:
     _common___IndexName:
       type: string
     _common___Indices:
+      description: |-
+        A comma-separated list of data streams, indexes, and aliases used to limit the request.
+        Supports wildcards (`*`).
+        To target all data streams and indexes, omit this parameter or use `*` or `_all`.
       oneOf:
         - $ref: '#/components/schemas/_common___IndexName'
         - type: array
@@ -35314,6 +35316,7 @@ components:
     _common___Name:
       type: string
     _common___Names:
+      description: A comma-separated list of aliases to retrieve. Supports wildcards (`*`).  To retrieve all aliases, omit this parameter or use `*` or `_all`.
       oneOf:
         - $ref: '#/components/schemas/_common___Name'
         - type: array
@@ -36560,6 +36563,7 @@ components:
       description: Time of day, expressed as HH:MM:SS.
       type: string
     _common___TimeUnit:
+      description: Specifies the time units, for example, `5d` or `7h`. For more information, see [Supported units](https://opensearch.org/docs/latest/api-reference/units/).
       oneOf:
         - title: nanoseconds
           type: string
